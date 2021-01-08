@@ -96,6 +96,7 @@
 			document.getElementById("findPw").onclick = function() {
 				location.href = "/member/findPw.mem";
 			}
+			
 		</script>
 		</c:otherwise>
 	</c:choose>
