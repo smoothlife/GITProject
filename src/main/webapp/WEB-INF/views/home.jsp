@@ -93,6 +93,7 @@
 			document.getElementById("signin").onclick = function() {
 				location.href = "/member/toJoinpage.mem";
 			}
+			
 		</script>
 		</c:otherwise>
 	</c:choose>
