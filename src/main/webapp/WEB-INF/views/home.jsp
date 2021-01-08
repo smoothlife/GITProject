@@ -29,7 +29,7 @@
 				}
 			}
 			document.getElementById("toMypage").onclick = function() {
-				location.href = "#";
+				location.href = "/member/toMyPage.mem";
 			}
 			document.getElementById("toBoard").onclick = function() {
 				location.href = "#";
@@ -91,10 +91,7 @@
 			</div>
 			<script>
 			document.getElementById("signin").onclick = function() {
-				location.href = "/member/join";
-			}
-			document.getElementById("findPw").onclick = function() {
-				location.href = "/member/findPw.mem";
+				location.href = "/member/toJoinpage.mem";
 			}
 			
 		</script>
