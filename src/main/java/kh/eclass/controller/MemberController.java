@@ -7,6 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kh.eclass.dto.MemberDTO;
+import kh.eclass.service.MemberService;
+import kh.eclass.utils.EncryptUtils;
 
 import kh.eclass.dto.MemberDTO;
 import kh.eclass.service.MemberService;
@@ -38,22 +43,24 @@ public class MemberController {
 	
 	//logout
 	@RequestMapping("logout.mem")
-	public String logout(Model model) {
+	public String logout() {
 			session.removeAttribute("login_id");
 			session.invalidate();
 			return "home";	
 	}
 	
-	//signoutView
+	//resignView
 	@RequestMapping("resignView.mem")
 	public String resignView() {
-		return "/member/signoutView";
+		return "/member/resignView";
 	}
 	
-	//signout
+	//resign
 	@RequestMapping("resign.mem")
 	public String resign(MemberDTO dto, Model model) throws Exception {
+		System.out.println("resign 컨트롤러 도착");
 		String id = (String)session.getAttribute("login_id");
+		System.out.println("session id + pw : "+id+dto.getPw());
 		boolean loginCheck = mservice.loginCheck(id, dto.getPw());
 		String result;
 		if(loginCheck) {
@@ -75,6 +82,71 @@ public class MemberController {
 //	public String findPw() {
 //		
 //	}
+
+	//아이디 중복확인
+	@RequestMapping(value="idDupleCk.mem", produces="text/plain; charset=UTF8")
+	@ResponseBody
+	public String idDuple(MemberDTO dto) {
+		System.out.println("id " + dto.getId());
+		int result = mservice.idDupleCk(dto);
+		System.out.println(result);
+		if(result>0) {
+			return "이미 존재하는 아이디입니다.";
+		}else {
+			return "사용가능한 아이디입니다.";
+		}
+	}
+
+	//회원가입
+	@RequestMapping("join.mem")
+	public String join(MemberDTO dto) {
+		//비밀번호 암호화
+		dto.setPw(EncryptUtils.getSHA512(dto.getPw()));
+
+		mservice.join(dto);
+		return "/home";
+	}
+
+	//마이페이지 이동
+	@RequestMapping("toMyPage.mem")
+	public String toMyPage(Model model) {
+		//세션에서 받아오는걸로 수정필요
+		String id = "a";
+
+		MemberDTO dto = mservice.getMyData(id);
+		model.addAttribute("dto", dto);
+		return "/member/mypage";
+	}
+
+	//수정페이지 이동
+	@RequestMapping("toRevisePage.mem")
+	public String toRevisePage(Model model) {
+		//세션에서 받아오는걸로 수정필요
+		String id = "a";
+
+		MemberDTO dto = mservice.getMyData(id);
+		model.addAttribute("dto", dto);
+		return "/member/revise";
+	}
+
+	//수정
+	@RequestMapping("revise.mem")
+	public String revise(MemberDTO dto) {
+		//세션에서 받아오는걸로 수정필요
+		String id = "a";
+		dto.setId(id);
+		
+		//비밀번호 암호화
+		dto.setPw(EncryptUtils.getSHA512(dto.getPw()));
+		
+		System.out.println(dto.getId());
+		System.out.println(dto.getName());
+		System.out.println(dto.getPw());
+		System.out.println(dto.getEmail());
+	
+		mservice.revise(dto);
+		return "redirect: toMyPage.mem";
+	}
 	
 	/*-----------------------예외처리-----------------------*/
 	@ExceptionHandler

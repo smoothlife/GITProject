@@ -19,7 +19,7 @@
 		<div class="container col-11 col-sm-9 col-lg-6"
 			style="min-width: 540px;">
 			<h4 class="row m-2 mb-4">회원 탈퇴를 위해 비밀번호를 입력하세요.</h4>
-			<form action="/member/resign.mem">
+			<form action="/member/resign.mem" method="post">
 				<div class="form-group">
 					 <input
 						type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요"
