@@ -20,7 +20,7 @@ public class MemberDTO {
 	}
 
 	public String getId() {
-		return id;
+		return id; 
 	}
 
 	public void setId(String id) {
