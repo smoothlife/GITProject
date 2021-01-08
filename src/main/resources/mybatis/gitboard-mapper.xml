@@ -30,5 +30,13 @@
 	<delete id="delContents">
 		delete from gitboard where seq=#{seq}
 	</delete>
-	<!--  -->
+	
+	<!-- 게시글 작성 -->
+	<select id="selectSeq" resultType="Integer">
+		SELECT GITBOARD_SEQ.NEXTVAL FROM USER_SEQUENCES WHERE SEQUENCE_NAME='GITBOARD_SEQ';
+	</select>
+	
+	<insert id="insertBoard">
+		INSERT INTO BOARD VALUES(#{dto.seq}, #{dto.title}, #{dto.contents}, #{dto.writer_id}, sysdate)
+	</insert>
   </mapper>

@@ -1,5 +1,8 @@
 package kh.eclass.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,5 +37,14 @@ public class BoardDAO {
 //	public int isWriterContents(BoardDTO dto) { return
 //			db.selectOne("Board.isWriterContents",dto); 
 //	}
-
+	
+	// 게시글 작성
+	public int getSeq() {
+		return db.selectOne("Board.selectSeq");
+	}
+	public int writing(BoardDTO dto) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("dto", dto);
+		return db.insert("Board.insertBoard", param);
+	}
 }

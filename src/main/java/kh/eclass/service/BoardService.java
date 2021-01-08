@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import kh.eclass.dao.BoardDAO;
 import kh.eclass.dto.BoardDTO;
+import oracle.net.aso.d;
 
 @Service
 public class BoardService {
@@ -33,5 +34,12 @@ public class BoardService {
 	// 작성자 일때만 수정/삭제 보이기 
 //	 public int isWriterContents(BoardDTO dto) { return
 //	 bdao.isWriterContents(dto); }
-	 
+	
+	// 게시글 작성
+	public int getSeq() {
+		return bdao.getSeq();
+	}
+	public int writing(BoardDTO dto) {
+		return bdao.writing(dto);
+	}
 }
