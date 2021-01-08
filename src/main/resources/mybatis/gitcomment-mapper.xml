@@ -13,6 +13,6 @@
 		delete from gitcomment where seq=#{seq}
 	</delete>
 	<select id="getListComment" resultType="kh.eclass.dto.CommentDTO">
-		select * from gitcomment where boardSeq=#{boardSeq}
+		select * from gitcomment where boardSeq=#{boardSeq} order by seq
 	</select>
 </mapper>
