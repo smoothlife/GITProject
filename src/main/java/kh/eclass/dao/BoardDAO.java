@@ -24,9 +24,23 @@ public class BoardDAO {
 		map.put("endRowNum", endRowNum);
 		return db.selectList("Board.getBoardList",map);
 	}
+	
+	public List<BoardDTO> getBoardSearchList(String title,int startRowNum, int endRowNum){
+		Map<String,Object> map = new HashMap<>();
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum", endRowNum);
+		map.put("title",title);
+		return db.selectList("Board.getBoardSearchList",map);
+	}
 	public int getBoardTotalCount() {
 		return db.selectOne("Board.getBoardTotalCount");
 	}
+	
+	public int getBoardSearchTotalCount(String title) {
+		return db.selectOne("Board.getBoardSearchTotalCount",title);
+	}
+	
+	
 	
 	
 	//지영

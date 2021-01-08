@@ -1,6 +1,7 @@
 package kh.eclass.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,8 @@ public class BoardContorller {
 	@Autowired
 	private BoardService bservice;
 
+	
+	//용국
 	@RequestMapping("toboard.board")
 	public String toboard(int cpage, Model model) {
 		if(cpage==0) {
@@ -22,19 +25,30 @@ public class BoardContorller {
 		}
 		List<BoardDTO> list = bservice.getBoardList(cpage);
 		String navi = bservice.getNavi(cpage);
-		System.out.println(navi);
 		model.addAttribute("navi",navi);
 		model.addAttribute("cpage",cpage);
 		model.addAttribute("list",list);
 		return "/board/boardlistview";
 	}
 	
-	@RequestMapping("toboarwrite.board")
+	@RequestMapping("toboardwrite.board")
 	public String toboarwrite(int cpage,Model model) {
 		model.addAttribute("cpage",cpage);
 		return "/board/boardWrite";
 	}
+	@RequestMapping("boardsearchlist.board")
+	public String boardSearchList(int cpage,String title,Model model) {
+		List<BoardDTO> list = bservice.getBoardSearchList(cpage,title);
+		String navi = bservice.getSerchNavi(cpage,title);
+		model.addAttribute("navi",navi);
+		model.addAttribute("cpage",cpage);
+		model.addAttribute("list",list);
+		
+		return "/board/boardlistview";
+	}
 	
+
+	//지영 
 	@RequestMapping("toboardcontentsview.board")
 	public String toBoardContents(int cpage,int seq, Model model) {
 		

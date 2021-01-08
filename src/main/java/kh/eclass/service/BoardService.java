@@ -20,12 +20,64 @@ public class BoardService {
 	//용국
 	public List<BoardDTO> getBoardList(int cpage){
 		int startRowNum = (cpage-1)*Configurator.recordCountPerPage+1;
-		int endRowNum = cpage *Configurator.recordCountPerPage;
-		System.out.println(startRowNum + ": "+endRowNum);
+		int endRowNum = cpage *Configurator.recordCountPerPage+1;
 		return bdao.getBoardList(startRowNum,endRowNum);
+	}
+	
+	public List<BoardDTO> getBoardSearchList(int cpage,String title){
+		int startRowNum = (cpage-1)*Configurator.recordCountPerPage+1;
+		int endRowNum = cpage *Configurator.recordCountPerPage+1;
+		return bdao.getBoardSearchList(title,startRowNum,endRowNum);
+		
 	}
 	public int getBoardTotalCount() {
 		return bdao.getBoardTotalCount();
+	}
+	
+	public int getBoardSearchTotalCount(String title) {
+		return bdao.getBoardSearchTotalCount(title);
+	}
+	
+	public String getSerchNavi(int cpage,String title) {
+		int recordTotalCount = bdao.getBoardSearchTotalCount(title);
+		int pageTotalCount;
+		if(recordTotalCount % Configurator.recordCountPerPage > 0) {
+			pageTotalCount = recordTotalCount / Configurator.recordCountPerPage +1;
+		}else {
+			pageTotalCount = recordTotalCount / Configurator.recordCountPerPage;
+		}
+		
+		if(cpage < 1) {
+			cpage=1;
+		}else if(cpage > pageTotalCount) {
+			cpage=pageTotalCount;
+		}
+		int startNavi = (cpage-1) / Configurator.naviCountPerPage * Configurator.naviCountPerPage +1;
+		int endNavi = startNavi + Configurator.naviCountPerPage-1;
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi == 1) {needPrev = false;}
+		if(endNavi == pageTotalCount) {needNext = false;}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(needPrev) {
+			sb.append("<li class=page-item disabled><a class=page-link href=/board/boardsearchlist.board?cpage="+(startNavi-1)+"&title="+title+">Previous</a></li>");
+		}
+		for(int i = startNavi; i<=endNavi; i++){
+			sb.append("<li class=page-item><a class=page-link href =/board/boardsearchlist.board?cpage="+i+"&title="+title+" id=naviNum"+i+">"+i+"</a></li>");
+		}
+		if(needNext) {
+			sb.append("<li class=page-item><a class=page-link href=/board/boardsearchlist.board?cpage="+(endNavi+1)+"&title="+title+">Next</a></li>");
+		}
+		return sb.toString();
+		
 	}
 	
 	public String getNavi(int cpage) {
