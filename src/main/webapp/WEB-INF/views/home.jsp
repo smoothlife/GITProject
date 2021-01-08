@@ -16,17 +16,23 @@
 	<c:choose>
 		<c:when test="${login_id!=null}">
 			<div class="container px-4 py-5 m-auto fullscreen">
-				<div class="d-flex" style="justify-content: center;">
-					<button class="btn btn-white" id="toMypage" type="button">마이페이지</button>
-					<button class="btn btn-white ml-3 mr-3" id="toBoard" type="button">와글게시판</button>
-					<button class="btn btn-white" id="toLogout" type="button">Logout</button>
-				</div>
-			</div>
-			<script type="text/javascript">
+	            <div class="d-flex" style="justify-content: center;" >
+	                <button class="btn btn-white" id="toMypage" type="button">마이페이지</button>
+	                <button class="btn btn-white ml-3 mr-3" id="toBoard" type="button">와글게시판</button>
+	                <button class="btn btn-white" id="toLogout" type="button">Logout</button>
+	            </div>
+	            <div class="d-flex" style="justify-content: center;">
+	            	<button class="btn-block btn-color1" id="toResign" type="button" style="max-width: 300px;">회원탈퇴</button>
+	            </div>
+	        </div>
+	        <script type="text/javascript">
 			document.getElementById("toLogout").onclick = function() {
 				if (confirm("로그아웃 하시겠습니까?")) {
 					location.href = "/member/logout.mem";
 				}
+			}
+			document.getElementById("toResign").onclick = function() {
+				location.href = "/member/resignView.mem";
 			}
 			document.getElementById("toMypage").onclick = function() {
 				location.href = "/member/toMyPage.mem";
@@ -65,10 +71,10 @@
 									</form>
 
 									<div id="signin" class="row justify-content-center my-3 px-3">
-										<button class="btn-block btn-white">회원가입</button>
+										<button id="signin" class="btn-block btn-white">회원가입</button>
 									</div>
-									<div id="findpw" class="row justify-content-center my-2">
-										<a href="#"><small class="text-muted">비밀번호를 잊으셨나요?</small></a>
+									<div id="findPw" class="row justify-content-center my-2">
+										<a href="#"><small class="text-muted">비밀번호를 잊으셨나요? -미개발</small></a>
 									</div>
 								</div>
 							</div>
@@ -92,6 +98,9 @@
 			<script>
 			document.getElementById("signin").onclick = function() {
 				location.href = "/member/toJoinpage.mem";
+			}
+			document.getElementById("findPw").onclick = function() {
+				location.href = "/member/findPw.mem";
 			}
 			
 		</script>

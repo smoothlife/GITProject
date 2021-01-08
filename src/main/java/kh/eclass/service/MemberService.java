@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import kh.eclass.dao.MemberDAO;
 import kh.eclass.dto.MemberDTO;
+import kh.eclass.utils.EncryptUtils;
 
 @Service
 public class MemberService {
@@ -30,6 +31,10 @@ public class MemberService {
 	
 	public boolean loginCheck(String id, String pw) throws Exception {
 		return mdao.loginCheck(id, pw);
+	}
+	
+	public int resign(String id) throws Exception{
+		return mdao.resign(id);
 	}
 
 }
