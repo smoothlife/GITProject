@@ -10,7 +10,10 @@
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <style>
             *{box-sizing: border-box}
-            div{
+            .container{
+                border: 1px solid gray;
+            }
+            .row{
                 border: 1px solid gray;
             }
         </style>
@@ -61,9 +64,9 @@
                     {contents : contents,
                     boardSeq : $('#getboardSeq').val()
                 },
-                       type: "post",
-                       url: "/comment/writeComment.comment",
-                       success: function(data){
+                    type: "post",
+                    url: "/comment/writeComment.comment",
+                    success: function(data){
                     console.log(data);
                     console.log("입력성공!");
                     $('#comment-contents').val("");
@@ -102,7 +105,11 @@
                         if (data.length > 0) {
                             for (i = 0; i < data.length; i++) {	
                                 html += "<input type=hidden class=getboardSeq name=boardSeq value="+data[i].boardSeq+">";
-                                html += "<input type=hidden class=getSeq name=seq value="+data[i].seq+">"; 
+                                html += "<input type=hidden class=getSeq name=seq value="+data[i].seq+">";
+                                html += "<div class='row' id='commentHeader"+data[i].seq+"'>";
+                                html += "<div class='col-2' style='font-size: 16px;'>"+data[i].writerId+"</div>"
+                                html += "<div class='col-3' style='font-size: 12px;'>"+data[i].writeDate+"</div>"
+                                html += "</div>"
                                 html += "<div class='row' id='commentDiv"+data[i].seq+ "style='height: 200px;'>";
                                 html += data[i].contents;
                                 html += "</div>";

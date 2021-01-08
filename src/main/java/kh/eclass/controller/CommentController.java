@@ -1,5 +1,4 @@
 package kh.eclass.controller;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,9 +39,6 @@ public class CommentController {
 		String writerId = "jej";
 		dto.setWriterId(writerId);
 		
-		int boardSeq = 5;
-		dto.setBoardSeq(boardSeq);
-		
 		int result = cservice.writeComment(dto);
 		JsonObject obj = new JsonObject();
 		obj.addProperty("result", result);
@@ -61,6 +57,7 @@ public class CommentController {
 	@ResponseBody
 	@RequestMapping("deleteComment.comment")
 	public String deleteComment(int seq) {
+		System.out.println("컨트롤러 도착!");
 		int result = cservice.deleteComment(seq);
 		JsonObject obj = new JsonObject();
 		obj.addProperty("result", result);
