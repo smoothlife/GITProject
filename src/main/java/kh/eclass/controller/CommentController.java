@@ -22,6 +22,11 @@ public class CommentController {
 	@Autowired
 	private CommentService cservice;
 	
+	@RequestMapping("/")
+	public String toComment() {
+		return "/comment";
+	}
+	
 	@ResponseBody
 	@RequestMapping("writeComment.comment")
 	public String writeComment(CommentDTO dto) {
