@@ -50,7 +50,11 @@ div {
 			<div class="row">
 				<div class="col-12 text-center">
 					<input type=button value="정보 수정" id=revise>
+					<input type=button value="홈으로" id=home>
 					<script>
+					$("#home").click(function(){
+						location.href="/";
+					})
 					$("#revise").click(function(){
 						location.href="/member/toRevisePage.mem";
 					})

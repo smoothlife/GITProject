@@ -45,7 +45,7 @@ public class MemberController {
 	@RequestMapping("toMyPage.mem")
 	public String toMyPage(Model model) {
 		//세션에서 받아오는걸로 수정필요
-		String id = "91714741";
+		String id = "a";
 
 		MemberDTO dto = mservice.getMyData(id);
 		model.addAttribute("dto", dto);
@@ -56,7 +56,7 @@ public class MemberController {
 	@RequestMapping("toRevisePage.mem")
 	public String toRevisePage(Model model) {
 		//세션에서 받아오는걸로 수정필요
-		String id = "91714741";
+		String id = "a";
 
 		MemberDTO dto = mservice.getMyData(id);
 		model.addAttribute("dto", dto);
@@ -67,7 +67,7 @@ public class MemberController {
 	@RequestMapping("revise.mem")
 	public String revise(MemberDTO dto) {
 		//세션에서 받아오는걸로 수정필요
-		String id = "91714741";
+		String id = "a";
 		dto.setId(id);
 		
 		//비밀번호 암호화

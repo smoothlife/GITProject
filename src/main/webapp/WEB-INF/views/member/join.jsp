@@ -21,7 +21,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <style>
 .container {
-	width: 600px;
+	width: 550px;
 	margin: auto;
 	margin-top: 50px;
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <style>
 .container {
-	width: 500px;
+	width: 550px;
 	margin: auto;
 	margin-top: 50px;
 }
@@ -33,41 +33,88 @@ div {
 </head>
 <body>
 	<div class=container>
-		<h2 class="text-center">회원가입</h2>
-		<form action="/member/revise.mem" method=post>
+		<h2 class="text-center">정보 수정</h2>
+		<form action="/member/revise.mem" method=post id=form>
 			<div class="row">
 				<div class="col-4">아이디 :</div>
-				<div class="col-8">
-					${dto.id }
-				</div>
+				<div class="col-8">${dto.id }</div>
 			</div>
 			<div class="row">
 				<div class="col-4">이름 :</div>
 				<div class="col-8">
-					<input type=text name=name value=${dto.name } required>
+					<input type=text name=name value="${dto.name }" required>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-4">비밀번호 :</div>
 				<div class="col-8">
-					<input type=password name=pw required>
+					<input type=password name=pw id=pw required>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-4">비밀번호 확인 :</div>
 				<div class="col-8">
-					<input type=password name=pwck required>
+					<input type=password id=pwck required> 
+					<input type=hidden id=pwFlag value="false"> 
+					<span id="pwckResult"></span>
 				</div>
 			</div>
+			<script>
+			let pw = document.getElementById("pw");
+			let pwck = document.getElementById("pwck");
+			let pwckResult = document.getElementById("pwckResult");
+			let pwFlag = document.getElementById("pwFlag");
+			
+			pw.oninput = function(){
+				console.log(pw);
+				if(pw.value == pwck.value){
+					pwckResult.innerHTML = "비밀번호 일치";
+					pwckResult.style.color = "black";
+					pwFlag.value="true";
+				}else{
+					pwckResult.innerHTML = "비밀번호 불일치!!";
+					pwckResult.style.color = "red";
+					pwFlag.value="false";
+				}
+			}
+			pwck.oninput = function(){
+				if(pw.value == pwck.value){
+					pwckResult.innerHTML = "비밀번호 일치";
+					pwckResult.style.color = "black";
+					pwFlag.value=true;
+				}else{
+					pwckResult.innerHTML = "비밀번호 불일치!!";
+					pwckResult.style.color = "red";
+					pwFlag.value=false;
+				}
+			}
+			
+			let form = document.getElementById("form");
+			form.onsubmit = function() {
+				let pwFlag = document.getElementById("pwFlag");
+				if(pwFlag.value == "false"){
+					alert("비밀번호가 일치하지 않습니다.");
+					return false;
+				}
+				return true;
+			}
+			</script>
 			<div class="row">
 				<div class="col-4">이메일 :</div>
 				<div class="col-8">
-					<input type=text name=email value=${dto.email} required>
+					<input type=text name=email value="${dto.email}" required>
 				</div>
 			</div>
 			<div class=row>
 				<div class="col-12 text-center">
 					<input type=submit>
+					<input type=button value="취소" id=cancel>
+					<script>
+					let cancel = document.getElementById("cancel");
+					cancel.onclick = function(){
+						location.href = "/member/toMyPage.mem"
+					}
+					</script>
 				</div>
 			</div>
 		</form>
