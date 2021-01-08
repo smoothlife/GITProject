@@ -35,7 +35,7 @@
 				location.href = "/member/resignView.mem";
 			}
 			document.getElementById("toMypage").onclick = function() {
-				location.href = "#";
+				location.href = "/member/toMyPage.mem";
 			}
 			document.getElementById("toBoard").onclick = function() {
 				location.href = "#";
@@ -97,11 +97,12 @@
 			</div>
 			<script>
 			document.getElementById("signin").onclick = function() {
-				location.href = "/member/join.mem";
+				location.href = "/member/toJoinpage.mem";
 			}
 			document.getElementById("findPw").onclick = function() {
 				location.href = "/member/findPw.mem";
 			}
+			
 		</script>
 		</c:otherwise>
 	</c:choose>

@@ -58,15 +58,15 @@ public class MemberController {
 	//resign
 	@RequestMapping("resign.mem")
 	public String resign(MemberDTO dto, Model model) throws Exception {
-		System.out.println("resign 컨트롤러 도착");
 		String id = (String)session.getAttribute("login_id");
-		System.out.println("session id + pw : "+id+dto.getPw());
 		boolean loginCheck = mservice.loginCheck(id, dto.getPw());
 		String result;
 		if(loginCheck) {
 			int resign = mservice.resign(id);
 			if(resign>0) {
 				result = "resign";
+				session.removeAttribute("login_id");
+				session.invalidate();
 			}else {
 				result = "resignError";
 			}
@@ -74,7 +74,7 @@ public class MemberController {
 			result = "nothing";
 		}
 		model.addAttribute("result", result);
-		return "/";
+		return "home";
 	}
 		
 	//find pw ===============ON GOING
@@ -96,7 +96,12 @@ public class MemberController {
 			return "사용가능한 아이디입니다.";
 		}
 	}
-
+	//회원가입 페이지 이동
+	@RequestMapping("toJoinpage.mem")
+	public String toJoinPage() {
+		return "/member/join";
+	}
+	
 	//회원가입
 	@RequestMapping("join.mem")
 	public String join(MemberDTO dto) {
@@ -111,7 +116,7 @@ public class MemberController {
 	@RequestMapping("toMyPage.mem")
 	public String toMyPage(Model model) {
 		//세션에서 받아오는걸로 수정필요
-		String id = "a";
+		String id = (String)session.getAttribute("login_id");
 
 		MemberDTO dto = mservice.getMyData(id);
 		model.addAttribute("dto", dto);
@@ -122,7 +127,7 @@ public class MemberController {
 	@RequestMapping("toRevisePage.mem")
 	public String toRevisePage(Model model) {
 		//세션에서 받아오는걸로 수정필요
-		String id = "a";
+		String id = (String)session.getAttribute("login_id");
 
 		MemberDTO dto = mservice.getMyData(id);
 		model.addAttribute("dto", dto);
@@ -132,9 +137,7 @@ public class MemberController {
 	//수정
 	@RequestMapping("revise.mem")
 	public String revise(MemberDTO dto) {
-		//세션에서 받아오는걸로 수정필요
-		String id = "a";
-		dto.setId(id);
+		dto.setId((String)session.getAttribute("login_id"));
 		
 		//비밀번호 암호화
 		dto.setPw(EncryptUtils.getSHA512(dto.getPw()));
