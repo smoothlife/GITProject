@@ -3,6 +3,7 @@ package kh.eclass.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,6 +52,8 @@ public class BoardDAO {
 	}
 	//수정된 내용 업로드
 	public int updateContents(BoardDTO dto) {
+		System.out.println("dao contents : " + dto.getContents());
+		System.out.println("dao title : " + dto.getTitle());
 		return db.update("Board.updateContents",dto);
 	}
 	//게시글 삭제
@@ -62,7 +65,7 @@ public class BoardDAO {
 		return db.selectOne("Board.isWriterContents",writerId); 
 	}
 	// 작성자 일때만 수정/삭제 보이기
-//	public int isWriterContents(BoardDTO dto) { return
-//			db.selectOne("Board.isWriterContents",dto); 
+//	public int isWriterContents(BoardDTO dto) { 
+//		return db.selectOne("Board.isWriterContents",dto); 
 //	}
 }
