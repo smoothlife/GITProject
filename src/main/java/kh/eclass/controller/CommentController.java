@@ -72,7 +72,7 @@ public class CommentController {
 		List<CommentDTO> list = cservice.getListComment(dto.getBoardSeq());
 		// list를 JsonArray로 바꾼다.
 		for (int i = 0; i < list.size(); i++) {
-			param = new HashMap<>();
+			param = new HashMap<String, Object>();
 			param.put("seq", list.get(i).getSeq());
 			param.put("contents", list.get(i).getContents());
 			param.put("boardSeq", list.get(i).getBoardSeq());

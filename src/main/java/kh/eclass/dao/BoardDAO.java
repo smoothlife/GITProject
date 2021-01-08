@@ -19,14 +19,14 @@ public class BoardDAO {
 	private SqlSession db;
 	//용국
 	public List<BoardDTO> getBoardList(int startRowNum,int endRowNum){
-		Map<String,Object> map = new HashMap<>();
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
 		return db.selectList("Board.getBoardList",map);
 	}
 	
 	public List<BoardDTO> getBoardSearchList(String title,int startRowNum, int endRowNum){
-		Map<String,Object> map = new HashMap<>();
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
 		map.put("title",title);
@@ -68,4 +68,14 @@ public class BoardDAO {
 //	public int isWriterContents(BoardDTO dto) { 
 //		return db.selectOne("Board.isWriterContents",dto); 
 //	}
+	
+	// 게시글 작성
+	public int getSeq() {
+		return db.selectOne("Board.selectSeq");
+	}
+	public int writing(BoardDTO dto) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("dto", dto);
+		return db.insert("Board.insertBoard", param);
+	}
 }

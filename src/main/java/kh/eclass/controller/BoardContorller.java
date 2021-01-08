@@ -1,11 +1,14 @@
 package kh.eclass.controller;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kh.eclass.dto.BoardDTO;
 import kh.eclass.service.BoardService;
@@ -15,6 +18,8 @@ import kh.eclass.service.BoardService;
 public class BoardContorller {
 	@Autowired
 	private BoardService bservice;
+	@Autowired
+	private HttpSession session;
 
 	//용국
 	@RequestMapping("toboard.board")
@@ -42,7 +47,6 @@ public class BoardContorller {
 		model.addAttribute("navi",navi);
 		model.addAttribute("cpage",cpage);
 		model.addAttribute("list",list);
-		
 		return "/board/boardlistview";
 	}
 	
@@ -110,5 +114,21 @@ public class BoardContorller {
 		model.addAttribute("cpage",cpage);
 		model.addAttribute("seq",seq);
 		return "redirect:/board/toboard.board";
+	}
+	
+	//게시글 작성
+	@RequestMapping("boardWriting.board")
+	public void boardWriteContentsWriting(MultipartHttpServletRequest mtfRequest, BoardDTO bdto) {
+		// 세션 login_id가 작성자
+		String writer = (String)session.getAttribute("login_id");
+		System.out.println(writer);
+		System.out.println(mtfRequest.getParameter("title"));
+		System.out.println(mtfRequest.getParameter("contents"));
+		bdto.setWriterId(writer);
+		bdto.setTitle(mtfRequest.getParameter("title"));
+		bdto.setContents(mtfRequest.getParameter("contents"));
+		int seqN = bservice.getSeq();
+		bdto.setSeq(seqN);
+		bservice.writing(bdto);
 	}
 }

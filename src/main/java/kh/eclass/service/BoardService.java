@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kh.eclass.dao.BoardDAO;
 import kh.eclass.dto.BoardDTO;
+import oracle.net.aso.d;
 import kh.eclass.statics.Configurator;
 
 @Service
@@ -148,8 +149,17 @@ public class BoardService {
 		return bdao.isWriterContents(writerId); 
 	}
 	// 작성자 일때만 수정/삭제 보이기 
+//	 public int isWriterContents(BoardDTO dto) { return
+//	 bdao.isWriterContents(dto); }
+	
+	// 게시글 작성
+	public int getSeq() {
+		return bdao.getSeq();
+	}
+	public int writing(BoardDTO dto) {
+		return bdao.writing(dto);
+	}
 //	 public int isWriterContents(BoardDTO dto) {
 //		 return bdao.isWriterContents(dto); 
 //	}
-
 }
