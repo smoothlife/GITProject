@@ -20,6 +20,8 @@ public class BoardDAO {
 	}
 	//수정된 내용 업로드
 	public int updateContents(BoardDTO dto) {
+		System.out.println("dao contents : " + dto.getContents());
+		System.out.println("dao title : " + dto.getTitle());
 		return db.update("Board.updateContents",dto);
 	}
 	//게시글 삭제

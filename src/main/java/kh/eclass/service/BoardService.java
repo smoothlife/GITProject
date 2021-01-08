@@ -20,6 +20,8 @@ public class BoardService {
 	}
 	//수정된 내용 업로드
 	public int updateContents(BoardDTO dto) {
+		System.out.println("서비스 contents : " + dto.getContents());
+		System.out.println("서비스 title : " + dto.getTitle());
 		return bdao.updateContents(dto);
 	}
 	//게시글 삭제

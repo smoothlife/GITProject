@@ -21,7 +21,7 @@ public class BoardContorller {
 	@RequestMapping("contentsPage.board")
 	public String contentsPage( Model model) {
 		String writerId = "권용국";
-		int seq = 16;
+		int seq = 2;
 		
 		//String getWriterId = bservice.getWriterId(seq);
 		
@@ -62,8 +62,10 @@ public class BoardContorller {
 		System.out.println("수정완료 컨드롤러 seq: "+seq);
 		System.out.println("수정완료 컨트롤러 contents: "+dto.getContents());
 		
+		//DB에 정보 수정 업로드
 		int result = bservice.updateContents(dto);
 		System.out.println("result :" +result);
+		
 		return "redirect:/board/contentsPage.board";
 	}
 	//게시글 삭제
