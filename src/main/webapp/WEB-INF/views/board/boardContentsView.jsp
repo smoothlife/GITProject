@@ -13,11 +13,17 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
-* {box-sizing: border-box;}
+* {
+	box-sizing: border-box;
+}
 
-div {border: 1px solid black;}
+div {
+	border: 1px solid gray;
+}
 
-.button {text-align: right;}
+.button {
+	text-align: right;
+}
 </style>
 </head>
 <body>
@@ -30,11 +36,11 @@ div {border: 1px solid black;}
 		<div class="row button">
 			<div class="col">
 				<c:if test="${isWriterContents>0}">
-					<button type="button" id="modify" class="btn btn-warning">글
-						수정</button>
-					<button type="button" class="btn btn-warning">글 삭제</button>
+					<button type="button" onclick="fn_modify(${dto.seq},${cpage})"
+						class="btn btn-warning">글 수정</button>
+					<button type="button" onclick="fn_delete(${dto.seq},${cpage})" class="btn btn-warning">글 삭제</button>
 				</c:if>
-				<button type="button" id="return" class="btn btn-warning">목록</button>
+				<button type="button" onclick="fn_toboardlistview(${cpage})" class="btn btn-warning">목록</button>
 			</div>
 		</div>
 		<div class="row contents">
@@ -43,12 +49,19 @@ div {border: 1px solid black;}
 		<div class="row comment">댓글부분</div>
 	</div>
 </body>
-<script type="text/javascript">
-	    document.getElementById("modify").onclick = function() {
-			location.href = "/board/contentsModify.board";
-		}
-	    document.getElementById("return").onclick = function() {
-			location.href = "";
-		}
+<script>
+	function fn_modify(seq,cpage){
+		console.log(seq);
+		console.log(cpage);
+		location.href="/board/contentsModify.board?seq="+seq+"&cpage="+cpage;
+	}
+	function fn_delete(seq,cpage){
+		console.log(seq);
+		console.log(cpage);
+		location.href="/board/delContents.board?seq="+seq+"&cpage="+cpage;
+	}
+	function fn_toboardlistview(cpage){
+		location.href="/board/toboard.board?cpage="+cpage;
+	}
     </script>
 </html>

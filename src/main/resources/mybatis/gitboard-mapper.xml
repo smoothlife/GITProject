@@ -15,7 +15,6 @@
 	
 	
 	
-	
 	<!--지영  -->
 	<!-- 글쓴이 아이디 가져오기 -->
 	<select id="getWriterId" resultType="String">
@@ -27,14 +26,14 @@
 	</select>
 	
 	<!-- // 작성자 일때만 수정/삭제 보이기  -테스트-->
-	<select id="isWriterContents" resultType="Integer">
+	 <select id="isWriterContents" resultType="Integer">
 		select count(*) from gitboard where writerid=#{writerId}
 	</select> 
 	
 	<!-- // 작성자 일때만 수정/삭제 보이기 -->
-	<!-- <select id="isWriterContents" resultType="Integer">
+ 	<!-- <select id="isWriterContents" resultType="Integer">
 		select count(*) from gitboard where seq=#{seq} and writerid=#{writerId}
-	</select> -->
+	</select>  -->
 	
 	<!-- 수정된 게시글 업로드 -->
 	<update id="updateContents">
