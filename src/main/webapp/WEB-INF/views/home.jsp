@@ -38,8 +38,9 @@
 				location.href = "/member/toMyPage.mem";
 			}
 			document.getElementById("toBoard").onclick = function() {
-				location.href = "#";
+				location.href = "/board/toboard.board?cpage=1";
 			}
+	
 	        </script>
 		</c:when>
 		<c:otherwise>
@@ -84,12 +85,6 @@
 								<h3>3조입니다.</h3>
 								<small class="text-main">요즘들어 날이 춥네요. 와글게시판에서 게시글 하나 남기고
 									가세요..</small>
-								<button class="btn btn-outline-dark" id="btn_board" onclick="btn_board()">게시판</button>
-								<script>
-									function btn_board(){
-										location.href="/board/toboard.board?cpage=1";
-									}
-								</script>
 							</div>
 						</div>
 					</div>
