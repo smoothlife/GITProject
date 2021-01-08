@@ -1,6 +1,7 @@
 package kh.eclass.controller;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ public class BoardContorller {
 	
 	@Autowired
 	private BoardService bservice;
+	
+	@Autowired
+	private HttpSession session;
 	
 	//게시글 가져오기
 	@RequestMapping("contentsPage.board")
@@ -71,5 +75,13 @@ public class BoardContorller {
 	public String delContents(int seq) {
 		int result = bservice.delContents(seq);
 		return "redirect:/보드목록으로 되돌아가기/";
+	}
+	
+	//게시글 작성
+	@RequestMapping("boardWriting.board")
+	public void boardWriteContentsWriting () {
+		// 세션 login_id가 작성자
+		String writer = (String)session.getAttribute("login_id");
+		System.out.println(writer);
 	}
 }

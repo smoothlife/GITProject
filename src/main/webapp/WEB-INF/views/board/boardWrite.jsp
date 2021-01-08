@@ -16,32 +16,35 @@
 		</style>
 	</head>
 	<body>
-		<form class="row g-3" action="" method="post">
-			<div class="container">
-				<div class="header">
+		<form class="row g-3" action="/board/boardWriting.board" method="post">
+			<div class="boardWrite-container">
+				<div class="boardWrite-header">
 					<h1>게시글 작성</h1>
 				</div>
-				<div class="body">
-					<div class="mb-3">
+				<div class="boardWrite-body">
+					<div class="boardWriteInputTitle mb-3">
 						<label for="tilteInput" class="form-label">제목</label>
 						<input type="text" class="form-control" id="tilteInput" placeholder="제목을 입력하세요.">
 					</div>
-					<div class="mb-3">
+					<div class="boardWriteInputContents mb-3">
 						<label for="contentsInput" class="form-label">내용</label>
 						<textarea class="form-control" id="contentsInput" rows="10"></textarea>
 					</div>
-					<div class="mb-3">
+					<div class="boardWriteInputFile mb-3">
 						<label for="formFileMultiple" class="form-label">파일 첨부</label>
 						<input class="form-control form-control-sm" type="file" id="formFileMultiple" multiple>
 					</div>
-					<div class="col-12">
+					<div class="boardWriteBtn col-12">
 						<button type="submit" class="btn btn-primary">글쓰기</button>
-						<button type="button" class="btn btn-primary">목록으로</button>
+						<button type="button" class="btn btn-primary" id="toBoardContentsView">목록으로</button>
 					</div>
 				</div>
 			</div>
 		</form>
 		<script>
+			document.getElementById("toBoardContentsView").onclick = function() {
+				location.href = "/board/contentsPage.board"
+			}
 		</script>
 	</body>
 </html>
