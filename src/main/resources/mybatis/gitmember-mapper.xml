@@ -2,6 +2,15 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Board">
+<mapper namespace="Member">
+
+	<!-- 로그인  확인, 아이디 삭제 -->
+	<select id="loginCheck" resultType="boolean">
+		select count(*) from GITMEMBER where id = #{id} and pw = #{pw}
+	</select>
+	
+	<delete id="deleteById">
+		delete from members where id=#{id}
+	</delete>
 
 </mapper>

@@ -23,7 +23,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 text-end">
-				<button class="btn btn-primary mt-5">글쓰기</button>
+				<button type=button class="btn btn-primary mt-5" onclick="toboardwrite(${cpage})">글쓰기</button>
 			</div>
 		</div>
 		<div class="row">
@@ -39,7 +39,7 @@
 					<c:forEach var="i" items="${list}">
 						<tr>
 							<td class="col-md-1">${i.seq}</td>
-							<td class="col-md-6" onclick ="toboardreadview(${i.seq})" style="cursor: pointer;">${i.title}</td>
+							<td class="col-md-6" onclick ="toboardreadview(${i.seq},${cpage})" style="cursor: pointer;">${i.title}</td>
 							<td class="col-md-2">${i.writerId}</td>
 							<td class="col-md-2">${i.writeDate}</td>
 						</tr>
@@ -57,9 +57,11 @@
 		</div>
 	</div>
 	<script>
-		function toboardreadview(seq){
-			console.log(seq);
-			//지영씨 끝나면 구현.
+		function toboardreadview(seq,cpage){
+			location.href="/board/toboardcontentsview.board?seq="+seq+"&cpage="+cpage;
+		}
+		function toboardwrite(cpage){
+			location.href="/board/toboarwrite.board?cpage="+cpage;
 		}
 	</script>
 </body>
