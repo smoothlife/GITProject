@@ -3,5 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Comment">
-
+	<insert id="writeComment">
+		insert into gitcomment values(gitcomment_seq.nextval,#{contents},#{writerId},#{boardSeq},sysdate)
+	</insert>
+	<update id="updateComment">
+		update gitcomment set contents = #{contents} where seq=#{seq}
+	</update>
+	<delete id="deleteComment">
+		delete from gitcomment where seq=#{seq}
+	</delete>
+	<select id="getListComment" resultType="kh.eclass.dto.CommentDTO">
+		select * from gitcomment where boardSeq=#{boardSeq}
+	</select>
 </mapper>
