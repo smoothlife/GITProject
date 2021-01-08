@@ -11,6 +11,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <style>
 * {
 	box-sizing: border-box;
@@ -53,15 +54,37 @@
 				<ul class="pagination justify-content-center mb-0">
 					${navi}
 				</ul>
+				<input type="hidden" id="getcpage" value="${cpage}" />
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col text-center">
+				<input type="text" id=getsearchtitle /> <button class="btn btn-outline-dark mb-1 pt-1 pb-1" type=button onclick="fn_searchtitle(${cpage})">검색</button>
 			</div>
 		</div>
 	</div>
 	<script>
+	
+		$("#getsearchtitle").keydown(function(key) {
+			var title = $("#getsearchtitle").val();
+			var cpage = $("#getcpage").val();''
+		if (key.keyCode == 13) {
+			location.href="/board/boardsearchlist.board?cpage=1&title="+title;
+		}else{
+			return;
+		}
+		});
+
 		function toboardreadview(seq,cpage){
 			location.href="/board/toboardcontentsview.board?seq="+seq+"&cpage="+cpage;
 		}
 		function toboardwrite(cpage){
-			location.href="/board/toboarwrite.board?cpage="+cpage;
+			location.href="/board/toboardwrite.board?cpage="+cpage;
+		}
+		function fn_searchtitle(cpage){
+			var title = $("#getsearchtitle").val();
+			location.href="/board/boardsearchlist.board?cpage=1&title="+title;
 		}
 	</script>
 </body>

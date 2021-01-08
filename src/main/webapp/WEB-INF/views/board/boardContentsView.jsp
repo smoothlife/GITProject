@@ -32,8 +32,9 @@ div {
 		<div class="row button">
 			<div class="col">
 				<c:if test="${isWriterContents>0}">
-					<button type="button" onclick="fn_modify(${seq},${cpage})" class="btn btn-warning">글 수정</button>
-					<button type="button" onclick="fn_delete()" class="btn btn-warning">글 삭제</button>
+					<button type="button" onclick="fn_modify(${dto.seq},${cpage})"
+						class="btn btn-warning">글 수정</button>
+					<button type="button" onclick="fn_delete(${dto.seq},${cpage})" class="btn btn-warning">글 삭제</button>
 				</c:if>
 				<button type="button" onclick="fn_toboardlistview(${cpage})" class="btn btn-warning">목록</button>
 			</div>
@@ -65,12 +66,6 @@ div {
 
 </body>
 <script>
-   function fn_modify(seq,cpage){
-      location.href="/board/contentsModify.board?seq"+seq+"&cpage="+cpage;
-   }
-   function fn_toboardlistview(cpage){
-      location.href="/board/toboard.board?cpage="+cpage;
-   }
    
    $(function() {
    	console.log("시작할 때 댓글목록을 불러옴.");
@@ -161,5 +156,19 @@ div {
            }
        });
    }
+	function fn_modify(seq,cpage){
+		console.log(seq);
+		console.log(cpage);
+		location.href="/board/contentsModify.board?seq="+seq+"&cpage="+cpage;
+	}
+	function fn_delete(seq,cpage){
+		console.log(seq);
+		console.log(cpage);
+		location.href="/board/delContents.board?seq="+seq+"&cpage="+cpage;
+	}
+	function fn_toboardlistview(cpage){
+		location.href="/board/toboard.board?cpage="+cpage;
+	}
+
     </script>
 </html>

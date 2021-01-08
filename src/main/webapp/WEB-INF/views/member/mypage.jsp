@@ -20,14 +20,38 @@
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <style>
-.container {
-	width: 500px;
-	margin: auto;
-	margin-top: 50px;
+body {
+	color: #000;
+	overflow-x: hidden;
+	height: 100%;
+	width: 100%;
+	background-image: linear-gradient(to right, #ee9ca7, #ffdde1);
+	background-repeat: no-repeat;
 }
 
-div {
+.container {
+	width: 550px;
+	border: border: 1px solid pink;
+	border-radius: 10px;
+	margin: auto;
+	margin-top: 50px;
+	background-color: white;
+	padding: 20px;
+	margin-bottom: 100px;
+}
+
+.row {
 	border: 1px solid pink;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.col-4 {
+	border-right: 1px solid pink;
+}
+
+.text-center {
+	margin-top: 20px;
 }
 </style>
 </head>
@@ -47,19 +71,17 @@ div {
 				<div class="col-4">이메일 :</div>
 				<div class="col-8">${dto.email }</div>
 			</div>
-			<div class="row">
-				<div class="col-12 text-center">
-					<input type=button value="정보 수정" id=revise>
-					<input type=button value="홈으로" id=home>
-					<script>
-					$("#home").click(function(){
-						location.href="/";
+			<div class="col-12 text-center">
+				<input type=button value="정보 수정" id=revise> <input
+					type=button value="홈으로" id=home>
+				<script>
+					$("#home").click(function() {
+						location.href = "/";
 					})
-					$("#revise").click(function(){
-						location.href="/member/toRevisePage.mem";
+					$("#revise").click(function() {
+						location.href = "/member/toRevisePage.mem";
 					})
 				</script>
-				</div>
 			</div>
 		</form>
 	</div>

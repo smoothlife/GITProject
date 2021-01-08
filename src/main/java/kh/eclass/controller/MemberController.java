@@ -13,6 +13,7 @@ import kh.eclass.dto.MemberDTO;
 import kh.eclass.service.MemberService;
 import kh.eclass.utils.EncryptUtils;
 
+import kh.eclass.dto.MemberDTO;
 import kh.eclass.service.MemberService;
 
 @Controller
@@ -42,25 +43,45 @@ public class MemberController {
 	
 	//logout
 	@RequestMapping("logout.mem")
-	public String logout(Model model) {
-			System.out.println("로그아웃 컨트롤러 도착");
+	public String logout() {
 			session.removeAttribute("login_id");
 			session.invalidate();
 			return "home";	
 	}
 	
+	//resignView
+	@RequestMapping("resignView.mem")
+	public String resignView() {
+		return "/member/resignView";
+	}
+	
+	//resign
+	@RequestMapping("resign.mem")
+	public String resign(MemberDTO dto, Model model) throws Exception {
+		String id = (String)session.getAttribute("login_id");
+		boolean loginCheck = mservice.loginCheck(id, dto.getPw());
+		String result;
+		if(loginCheck) {
+			int resign = mservice.resign(id);
+			if(resign>0) {
+				result = "resign";
+				session.removeAttribute("login_id");
+				session.invalidate();
+			}else {
+				result = "resignError";
+			}
+		}else {
+			result = "nothing";
+		}
+		model.addAttribute("result", result);
+		return "home";
+	}
+		
 	//find pw ===============ON GOING
 //	@RequestMapping("findPw.mem")
 //	public String findPw() {
 //		
 //	}
-	
-	/*-----------------------예외처리-----------------------*/
-	@ExceptionHandler
-	public String exceptionhandler(Exception e) {
-		e.printStackTrace();
-		return "error";
-	}
 
 	//아이디 중복확인
 	@RequestMapping(value="idDupleCk.mem", produces="text/plain; charset=UTF8")
@@ -75,7 +96,12 @@ public class MemberController {
 			return "사용가능한 아이디입니다.";
 		}
 	}
-
+	//회원가입 페이지 이동
+	@RequestMapping("toJoinpage.mem")
+	public String toJoinPage() {
+		return "/member/join";
+	}
+	
 	//회원가입
 	@RequestMapping("join.mem")
 	public String join(MemberDTO dto) {
@@ -90,7 +116,7 @@ public class MemberController {
 	@RequestMapping("toMyPage.mem")
 	public String toMyPage(Model model) {
 		//세션에서 받아오는걸로 수정필요
-		String id = "a";
+		String id = (String)session.getAttribute("login_id");
 
 		MemberDTO dto = mservice.getMyData(id);
 		model.addAttribute("dto", dto);
@@ -101,7 +127,7 @@ public class MemberController {
 	@RequestMapping("toRevisePage.mem")
 	public String toRevisePage(Model model) {
 		//세션에서 받아오는걸로 수정필요
-		String id = "a";
+		String id = (String)session.getAttribute("login_id");
 
 		MemberDTO dto = mservice.getMyData(id);
 		model.addAttribute("dto", dto);
@@ -111,9 +137,7 @@ public class MemberController {
 	//수정
 	@RequestMapping("revise.mem")
 	public String revise(MemberDTO dto) {
-		//세션에서 받아오는걸로 수정필요
-		String id = "a";
-		dto.setId(id);
+		dto.setId((String)session.getAttribute("login_id"));
 		
 		//비밀번호 암호화
 		dto.setPw(EncryptUtils.getSHA512(dto.getPw()));
@@ -125,6 +149,13 @@ public class MemberController {
 	
 		mservice.revise(dto);
 		return "redirect: toMyPage.mem";
+	}
+	
+	/*-----------------------예외처리-----------------------*/
+	@ExceptionHandler
+	public String exceptionhandler(Exception e) {
+		e.printStackTrace();
+		return "error";
 	}
 
 }

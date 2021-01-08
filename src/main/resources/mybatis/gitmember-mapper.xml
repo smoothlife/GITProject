@@ -25,7 +25,7 @@
 	</select>
 	
 	<delete id="deleteById">
-		delete from members where id=#{id}
+		delete from GITMEMBER where id=#{id}
 	</delete>
 
 </mapper>
