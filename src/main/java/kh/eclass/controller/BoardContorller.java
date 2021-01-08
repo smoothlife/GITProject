@@ -118,17 +118,24 @@ public class BoardContorller {
 	
 	//게시글 작성
 	@RequestMapping("boardWriting.board")
-	public void boardWriteContentsWriting(MultipartHttpServletRequest mtfRequest, BoardDTO bdto) {
+	public String boardWriteContentsWriting(String cpage, String title, String contents) {
 		// 세션 login_id가 작성자
 		String writer = (String)session.getAttribute("login_id");
-		System.out.println(writer);
-		System.out.println(mtfRequest.getParameter("title"));
-		System.out.println(mtfRequest.getParameter("contents"));
+		//System.out.println(mtfRequest.getParameter("title"));
+		//System.out.println(mtfRequest.getParameter("contents"));
+		BoardDTO bdto = new BoardDTO();
 		bdto.setWriterId(writer);
-		bdto.setTitle(mtfRequest.getParameter("title"));
-		bdto.setContents(mtfRequest.getParameter("contents"));
+		//bdto.setTitle(mtfRequest.getParameter("title"));
+		//bdto.setContents(mtfRequest.getParameter("contents"));
 		int seqN = bservice.getSeq();
 		bdto.setSeq(seqN);
+		System.out.println(bdto.getSeq());
+		System.out.println(contents);
+		System.out.println(title);
+		System.out.println(bdto.getWriterId());
+		bdto.setContents(contents);
+		bdto.setTitle(title);
 		bservice.writing(bdto);
+		return "redirect:/board/toboard.board?cpage=1";
 	}
 }

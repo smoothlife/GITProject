@@ -55,10 +55,10 @@
 	
 	<!-- 게시글 작성 -->
 	<select id="selectSeq" resultType="Integer">
-		SELECT GITBOARD_SEQ.NEXTVAL FROM USER_SEQUENCES WHERE SEQUENCE_NAME='GITBOARD_SEQ';
+		SELECT GITBOARD_SEQ.NEXTVAL FROM USER_SEQUENCES WHERE SEQUENCE_NAME='GITBOARD_SEQ'
 	</select>
 	
 	<insert id="insertBoard">
-		INSERT INTO BOARD VALUES(#{dto.seq}, #{dto.title}, #{dto.contents}, #{dto.writer_id}, sysdate)
+		INSERT INTO GITBOARD VALUES(#{dto.seq}, #{dto.title}, #{dto.contents}, #{dto.writerId}, sysdate)
 	</insert>
   </mapper>

@@ -16,7 +16,7 @@
 		</style>
 	</head>
 	<body>
-		<form class="row g-3" action="/board/boardWriting.board" method="post" enctype="multipart/form-data">
+		<form class="row g-3" action="/board/boardWriting.board" method="post">
 			<div class="boardWrite-container">
 				<div class="boardWrite-header">
 					<h1>게시글 작성</h1>
@@ -45,7 +45,7 @@
 		</form>
 		<script>
 			document.getElementById("toBoardContentsView").onclick = function() {
-				location.href = "/board/contentsPage.board"
+				location.href = "/board/toboard.board?cpage=${cpage}"
 			}
 		</script>
 	</body>
