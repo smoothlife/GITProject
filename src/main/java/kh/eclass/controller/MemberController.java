@@ -75,7 +75,12 @@ public class MemberController {
 			return "사용가능한 아이디입니다.";
 		}
 	}
-
+	//회원가입 페이지 이동
+	@RequestMapping("toJoinpage.mem")
+	public String toJoinPage() {
+		return "/member/join";
+	}
+	
 	//회원가입
 	@RequestMapping("join.mem")
 	public String join(MemberDTO dto) {
