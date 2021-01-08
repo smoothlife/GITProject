@@ -16,12 +16,11 @@ public class BoardContorller {
 	@Autowired
 	private BoardService bservice;
 
-	
 	//용국
 	@RequestMapping("toboard.board")
 	public String toboard(int cpage, Model model) {
-		if(cpage==0) {
-			cpage=1;
+		if (cpage == 0) {
+			cpage = 1;
 		}
 		List<BoardDTO> list = bservice.getBoardList(cpage);
 		String navi = bservice.getNavi(cpage);
@@ -89,7 +88,8 @@ public class BoardContorller {
 		
 		return "/board/boardContentsModify";
 	}
-	//게시글 수정 완료
+
+	// 게시글 수정 완료
 	@RequestMapping("contentsModifyDone.board")
 	public String contentsModifyDone(BoardDTO dto,int cpage,Model model) {
 		System.out.println("컨트롤러" + dto.getSeq());
@@ -100,7 +100,8 @@ public class BoardContorller {
 		model.addAttribute("cpage",cpage);
 		return "redirect:/board/toboard.board";
 	}
-	//게시글 삭제
+
+	// 게시글 삭제
 	@RequestMapping("delContents.board")
 	public String delContents(int seq,int cpage,Model model) {
 		System.out.println("삭제");
