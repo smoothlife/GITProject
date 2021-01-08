@@ -3,6 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Member">
+	<select id="idDupleCk" resultType="Integer">
+		select count(id) from gitmember where id=#{id}
+	</select>
+	
+	<insert id="join">
+		insert into gitmember values(#{id}, #{name}, #{pw}, #{email}, sysdate)
+	</insert>
+	
+	<select id="getMyData" resultType="kh.eclass.dto.MemberDTO">
+		select * from gitmember where id=#{id}
+	</select>
+	
+	<update id="revise">
+		update gitmember set name=#{name}, pw=#{pw}, email=#{email} where id=#{id}
+	</update>
 
 	<!-- 로그인  확인, 아이디 삭제 -->
 	<select id="loginCheck" resultType="boolean">

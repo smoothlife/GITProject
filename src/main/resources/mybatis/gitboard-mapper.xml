@@ -11,11 +11,7 @@
 	<select id="getBoardTotalCount" resultType="Integer">
 		select count(*) from gitboard 
 	</select>
-	
-	
-	
-	
-	
+
 	<!--지영  -->
 	<!-- 글쓴이 아이디 가져오기 -->
 	<select id="getWriterId" resultType="String">
