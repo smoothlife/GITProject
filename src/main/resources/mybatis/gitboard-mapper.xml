@@ -3,6 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="Board">
+	<!--용국  0-->
+	<select id="getBoardList" resultType="kh.eclass.dto.BoardDTO">
+		select * from (select ROWNUM num, N.* from (select * from gitboard order by writedate desc) N)
+		where num between #{startRowNum} and #{endRowNum}
+	</select>
+	
+	<select id="getBoardSearchList" resultType="kh.eclass.dto.BoardDTO">
+		select * from (select ROWNUM num, N.* from (select * from gitboard order by writedate desc) N)
+		where num between #{startRowNum} and #{endRowNum} and title like '%'||#{title}||'%'
+	</select>
+	
+	<select id="getBoardTotalCount" resultType="Integer">
+		select count(*) from gitboard 
+	</select>
+	
+	<select id="getBoardSearchTotalCount" resultType="Integer">
+		select count(*) from gitboard where title like '%'||#{title}||'%'
+	</select>
+	
+
+
+	<!--지영  -->
 	<!-- 글쓴이 아이디 가져오기 -->
 	<select id="getWriterId" resultType="String">
 		select writerid from gitboard where seq=#{seq}
@@ -13,14 +35,14 @@
 	</select>
 	
 	<!-- // 작성자 일때만 수정/삭제 보이기  -테스트-->
-	<select id="isWriterContents" resultType="Integer">
+	 <select id="isWriterContents" resultType="Integer">
 		select count(*) from gitboard where writerid=#{writerId}
 	</select> 
 	
 	<!-- // 작성자 일때만 수정/삭제 보이기 -->
-	<!-- <select id="isWriterContents" resultType="Integer">
+ 	<!-- <select id="isWriterContents" resultType="Integer">
 		select count(*) from gitboard where seq=#{seq} and writerid=#{writerId}
-	</select> -->
+	</select>  -->
 	
 	<!-- 수정된 게시글 업로드 -->
 	<update id="updateContents">
