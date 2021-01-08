@@ -14,5 +14,9 @@ public class MemberService {
 	public boolean loginCheck(String id, String pw) throws Exception {
 		return mdao.loginCheck(id, pw);
 	}
+	
+	public int resign(String id) throws Exception{
+		return mdao.resign(id);
+	}
 
 }

@@ -18,5 +18,9 @@ public class MemberDAO {
 		dto.setPw(pw);
 		return db.selectOne("Member.loginCheck", dto);	
 	}
+	
+	public int resign(String id) throws Exception{
+		return db.delete("Member.deleteById",id);
+	}
 
 }

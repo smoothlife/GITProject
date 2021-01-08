@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kh.eclass.dto.MemberDTO;
 import kh.eclass.service.MemberService;
 
 @Controller
@@ -38,12 +39,37 @@ public class MemberController {
 	//logout
 	@RequestMapping("logout.mem")
 	public String logout(Model model) {
-			System.out.println("로그아웃 컨트롤러 도착");
 			session.removeAttribute("login_id");
 			session.invalidate();
 			return "home";	
 	}
 	
+	//signoutView
+	@RequestMapping("resignView.mem")
+	public String resignView() {
+		return "/member/signoutView";
+	}
+	
+	//signout
+	@RequestMapping("resign.mem")
+	public String resign(MemberDTO dto, Model model) throws Exception {
+		String id = (String)session.getAttribute("login_id");
+		boolean loginCheck = mservice.loginCheck(id, dto.getPw());
+		String result;
+		if(loginCheck) {
+			int resign = mservice.resign(id);
+			if(resign>0) {
+				result = "resign";
+			}else {
+				result = "resignError";
+			}
+		}else {
+			result = "nothing";
+		}
+		model.addAttribute("result", result);
+		return "/";
+	}
+		
 	//find pw ===============ON GOING
 //	@RequestMapping("findPw.mem")
 //	public String findPw() {
