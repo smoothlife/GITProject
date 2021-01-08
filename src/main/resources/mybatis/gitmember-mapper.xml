@@ -18,4 +18,14 @@
 	<update id="revise">
 		update gitmember set name=#{name}, pw=#{pw}, email=#{email} where id=#{id}
 	</update>
+
+	<!-- 로그인  확인, 아이디 삭제 -->
+	<select id="loginCheck" resultType="boolean">
+		select count(*) from GITMEMBER where id = #{id} and pw = #{pw}
+	</select>
+	
+	<delete id="deleteById">
+		delete from members where id=#{id}
+	</delete>
+
 </mapper>

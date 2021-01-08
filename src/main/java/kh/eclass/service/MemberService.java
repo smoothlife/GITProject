@@ -27,4 +27,9 @@ public class MemberService {
 	public void revise(MemberDTO dto) {
 		mdao.revise(dto);
 	}
+	
+	public boolean loginCheck(String id, String pw) throws Exception {
+		return mdao.loginCheck(id, pw);
+	}
+
 }

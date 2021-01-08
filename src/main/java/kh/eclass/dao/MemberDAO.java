@@ -29,4 +29,11 @@ public class MemberDAO {
 		db.update("Member.revise", dto);
 	}
 	
+	public boolean loginCheck(String id, String pw) throws Exception{
+		MemberDTO dto = new MemberDTO();
+		dto.setId(id); 
+		dto.setPw(pw);
+		return db.selectOne("Member.loginCheck", dto);	
+	}
+
 }
